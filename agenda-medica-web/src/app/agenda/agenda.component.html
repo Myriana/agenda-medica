@@ -1,0 +1,191 @@
+
+<!-- Detalhar -->
+<div *ngIf='agendaSelecionada && opcaoDetalhar'>
+  <div class="card mb-5">
+    <div class="card-header bg-info">
+      <app-titulo [titulo]='"Detalhar agenda #" + agendaSelecionada.id'></app-titulo>
+    </div>
+    <form [formGroup]='agendaForm'>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                <label for="nome">Nome do paciente</label>
+                <input type="text" formControlName="nomePaciente" class="form-control" disabled>
+              </div>
+              <div class="form-group">
+                <label for="nascimento">Data de nascimento do paciente</label>
+                <input type="date" formControlName="dataNascimentoPaciente" class="form-control" disabled>
+              </div>
+              <div class="form-group">
+                <label for="inicio">Data inicial da consulta</label>
+                <input type="datetime-local" formControlName="dataInicialConsulta" class="form-control" disabled>
+              </div>
+              <div class="form-group">
+                <label for="fim">Data final da consulta</label>
+                <input type="datetime-local" formControlName="dataFimConsulta" class="form-control" disabled>
+              </div>
+              <div class="form-group">
+                <label for="observacoes">Observações</label>
+                <input type="text" formControlName="observacoes" class="form-control" disabled>
+              </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <div class="card-footer bg-transparent">
+      <button class="btn btn-secondary float-right" (click)="voltar()">Voltar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Editar -->
+<div *ngIf='agendaSelecionada && opcaoEditar'>
+  <div class="card mb-5">
+    <div class="card-header bg-info">
+      <app-titulo [titulo]='"Editar agenda #" + agendaSelecionada.id'></app-titulo>
+    </div>
+    <form [formGroup]="agendaForm" (submit)="editarSubmit()">
+      <div class="card-body">
+        <div class="row" *ngIf='msgErro'>
+          <div class="col-md-12">
+            <span class="text-danger"> {{ msgErro }} </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+              <div class="form-group">
+                <label for="nome">Nome do paciente</label>
+                <input type="text" formControlName="nomePaciente" class="form-control" id="nome">
+              </div>
+              <div class="form-group">
+                <label for="nascimento">Data de nascimento do paciente</label>
+                <input type="date" formControlName="dataNascimentoPaciente" class="form-control" id="nascimento">
+              </div>
+              <div class="form-group">
+                <label for="inicio">Data inicial da consulta</label>
+                <input type="datetime-local" formControlName="dataInicialConsulta" class="form-control" id="inicio">
+              </div>
+              <div class="form-group">
+                <label for="fim">Data final da consulta</label>
+                <input type="datetime-local" formControlName="dataFimConsulta" class="form-control" id="fim">
+              </div>
+              <div class="form-group">
+                <label for="observacoes">Observações</label>
+                <input type="text" formControlName="observacoes" class="form-control" id="observacoes">
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent">
+        <div class="d-flex flex-row-reverse">
+          <div class="p-2">
+            <button type="submit" class="btn btn-primary" [disabled]="!agendaForm.valid">Salvar</button>
+          </div>
+          <div class="p-2">
+            <button class="btn btn-secondary" (click)="voltar()">Voltar</button>
+          </div>
+        </div>
+      </div>
+  </form>
+  </div>
+</div>
+
+<!-- Cadastrar -->
+<div *ngIf='opcaoCadastrar'>
+  <div class="card mb-5">
+    <div class="card-header bg-info">
+      <app-titulo [titulo]='"Cadastrar Agenda"'></app-titulo>
+    </div>
+        <form [formGroup] = 'agendaForm' (submit)='cadastrarSubmit()'>
+          <div class="card-body">
+            <div class="row" *ngIf='msgErro'>
+              <div class="col-md-12">
+                <span class="text-danger"> {{ msgErro }} </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="nome">Nome do paciente</label>
+                    <input type="text" formControlName="nomePaciente" class="form-control" id="nome">
+                  </div>
+                  <div class="form-group">
+                    <label for="nascimento">Data de nascimento do paciente</label>
+                    <input type="date" formControlName="dataNascimentoPaciente" class="form-control" id="nascimento">
+                  </div>
+                  <div class="form-group">
+                    <label for="inicio">Data inicial da consulta</label>
+                    <input type="datetime-local" formControlName="dataInicialConsulta" class="form-control" id="inicio">
+                  </div>
+                  <div class="form-group">
+                    <label for="fim">Data final da consulta</label>
+                    <input type="datetime-local" formControlName="dataFimConsulta" class="form-control" id="fim">
+                  </div>
+                  <div class="form-group">
+                    <label for="observacoes">Observações</label>
+                    <input type="text" formControlName="observacoes" class="form-control" id="observacoes">
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer bg-transparent">
+            <div class="d-flex flex-row-reverse">
+              <div class="p-2">
+                <button type="submit" class="btn btn-primary" [disabled]="!agendaForm.valid">Salvar</button>
+              </div>
+              <div class="p-2">
+                <button class="btn btn-secondary" (click)="voltar()">Voltar</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+<!-- Listar -->
+<div *ngIf='!agendaSelecionada'>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-flex flex-row">
+        <div class="mr-auto p-2">
+          <app-titulo [titulo]='titulo'></app-titulo>
+        </div>
+        <div class="p-2">
+          <a class="btn btn-secondary" (click)="cadastrar()">Nova agenda <i class="fa fa-plus"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table">
+        <thead class="thead-light">
+          <tr class="d-flex">
+            <th class="col-1" scope="col">#</th>
+            <th class="col-8" scope="col">Nome do Paciente</th>
+            <th class="col-3" colspan="3">Opções</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="d-flex" *ngFor="let agenda of agendas">
+            <th class="col-1" scope="row">{{agenda.id}}</th>
+            <td class="col-8">{{ agenda.nomePaciente }}</td>
+            <td class="col-1">
+              <a class="btn btn-sm btn-secondary" (click)="detalhar(agenda)"><i class="fa fa-search"></i></a>
+            </td>
+            <td class="col-1">
+              <a class="btn btn-sm btn-warning" (click)="editar(agenda)"><i class="fa fa-pencil"></i></a>
+            </td>
+            <td class="col-1">
+              <a class="btn btn-sm btn-danger" (click)="deletar(agenda)"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
